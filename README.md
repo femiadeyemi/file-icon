@@ -5,7 +5,7 @@
 _[Demo and API docs](http://dcache-elements.github.io/file-icon/)_
 
 The `file-icon` element displays an file icon based on the 
-supplied file extension.
+supplied MIME type.
 
 **Task list**
 

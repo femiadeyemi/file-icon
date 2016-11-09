@@ -5,7 +5,7 @@
 
 <!--
 The `file-icon` element displays an file icon based on the 
-supplied file extension.
+supplied file's' MIME type.
 
 @demo demo/index.html 
 -->
@@ -34,7 +34,7 @@ supplied file extension.
                  * file extension
                  * @type {String}
                  */
-                ext: {
+                mimeType: {
                     type: String,
                 },
 
@@ -47,88 +47,70 @@ supplied file extension.
             },
 
             observers: [
-                '_updateIcon(ext)'
+                '_updateIcon(mimeType)'
             ],
 
-            _updateIcon: function(ext) {
-                switch(ext.toLowerCase()) {
-                    case "n/a":
-                        this._iconName = "folder";
-                        this.style.fill = "#4FC3F7";
-                        break;
-                    case "pdf":
-                        this._iconName = "pdf";
-                        this.style.fill = "#ff1313";
-                        break;
-                    case "gif":
+            _updateIcon: function(mimeType) 
+            {
+                if (mimeType.startsWith("video/")) {
+                    this.style.fill = "#a49f63";
+                    this._iconName = "video";
+                } else if (mimeType.startsWith("audio/")) {
+                    this.style.fill = "#38d8bc";
+                    this._iconName = "audio";
+                } else if (mimeType.startsWith("image/")) {
+                    if (mimeType.substring(mimeType.lastIndexOf('/')+1, mimeType.length) == "gif") {
                         this._iconName = "gif";
                         this.style.fill = "#cc68c0";
-                        break;
-                    case "bmp":
-					case "png":
-					case "jpeg":
-					case "jpg":
-					case "tif":
-					case "tiff":
+                    } else {
                         this.style.fill = "#cc68c0";
                         this._iconName = "image";
-                        break;
-                    case "3G2":
-					case "3gp":
-					case "avi":
-					case "flv":
-					case "m4v":
-					case "mov":
-					case "mp4":
-					case "mpg":
-					case "rm":
-					case "swf":
-					case "vob":
-					case "wmv":
-						this.style.fill = "#a49f63";
-                        this._iconName = "video";
-                        break;
-                    case "xlr":
-					case "xls":
-					case "xlsx":
-						this.style.fill = "#88c7cc";
-                        this._iconName = "spreadsheet";
-                        break;
-                    case "aif":
-					case "iff":
-					case "m3u":
-					case "m4a":
-					case "mid":
-					case "mp3":
-					case "mpa":
-					case "wav":
-					case "wma":
-						this.style.fill = "#38d8bc";
-                        this._iconName = "audio";
-                        break;
-                    case "doc":
-					case "log":
-					case "odt":
-					case "rft":
-					case "tex":
-					case "txt":
-						this.style.fill = "#747474";
-                        this._iconName = "text";
-                        break;
-                    case "pkg":
-					case "rar":
-					case "rpm":
-					case "tar":
-					case "tgz":
-					case "zip":
-					case "zipx":
-						tthis.style.fill = "#575757";
-                        this._iconName = "compressed";
-						break;
-                    case "unknown":
-                    default:
-                        this.style.fill = "#ccc";
-                        this._iconName = "unknown";
+                    }
+                } else if (mimeType.startsWith("text/")) {
+                    this.style.fill = "#747474";
+                    this._iconName = "text";
+                } else if (mimeType.startsWith("application/")) {
+                    var subtype = mimeType.substring(mimeType.lastIndexOf('/')+1, mimeType.length);
+                    switch(subtype.toLowerCase()) {
+                        case "zip":
+                        case "x-tar":
+                        case "x-bzip":
+                        case "x-bzip2":
+                        case "x-compressed-zip":
+                        case "x-rar-compressed":
+                        case "x-7z-compressed":
+                            this.style.fill = "#575757";
+                            this._iconName = "compressed";
+                            break;
+                        case "pdf":
+                            this._iconName = "pdf";
+                            this.style.fill = "#ff1313";
+                            break;
+                        case "vnd.ms-excel":
+                        case "vnd.oasis.opendocument.spreadsheet":
+                        case "vnd.ms-excel.sheet.binary.macroEnabled.12":
+                        case "vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                        case "vnd.openxmlformats-officedocument.spreadsheetml.template":
+                            this.style.fill = "#88c7cc";
+                            this._iconName = "spreadsheet";
+                            break;
+                        case "msword":
+                        case "vnd.oasis.opendocument.text":
+                        case "vnd.openxmlformats-officedocument.wordprocessingml.document":
+                            this.style.fill = "#1e90ff";
+                            this._iconName = "text";
+                            break;
+                        case "unknown":
+                        default:
+                            this.style.fill = "#ccc";
+                            this._iconName = "unknown";
+                    }
+                } else if (mimeType == "na") {
+                    this._iconName = "folder";
+                    this.style.fill = "#4FC3F7";
+                } else {
+                    this.style.fill = "#ccc";
+                    this._iconName = "unknown";
                 }
                 this._iconset = this._meta.byKey('files');
                 this._iconset.applyIcon(this, this._iconName);

@@ -23,12 +23,13 @@
       <h3>file-icons</h3>
       <demo-snippet>
         <template>
-          <file-icon ext="rft"></file-icon>
-          <file-icon ext="png"></file-icon>
-          <file-icon ext="pdf"></file-icon>
-          <file-icon ext="mp3"></file-icon>
-          <file-icon ext="mp4"></file-icon>
-          <file-icon ext="xls"></file-icon>
+          <file-icon mime-type="image/gif"></file-icon>
+          <file-icon mime-type="image/png"></file-icon>
+          <file-icon mime-type="application/pdf"></file-icon>
+          <file-icon mime-type="audio/mp3"></file-icon>
+          <file-icon mime-type="video/mp4"></file-icon>
+          <file-icon mime-type="application/vnd.ms-excel"></file-icon>
+          <file-icon mime-type="na"></file-icon>
         </template>
       </demo-snippet>
 
@@ -42,8 +43,8 @@
               height: 60px;
             }
           </style>
-          <file-icon class="pdf" ext="pdf"></file-icon>
-          <file-icon ext="pdf"></file-icon>
+          <file-icon class="pdf" mime-type="application/pdf"></file-icon>
+          <file-icon mime-type="application/pdf"></file-icon>
         </template>
       </demo-snippet>
     </div>
