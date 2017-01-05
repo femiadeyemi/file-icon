@@ -52,7 +52,11 @@
       });
 
       suite('check the default styling of the file-icon', function() {
-        var element = fixture('defaultStyling');
+        var element;
+        
+        setup(function() {
+          element = fixture('defaultStyling');
+        });
 
         test('checking the default style', function() {
           var style = document.defaultView.getComputedStyle(element, null);
