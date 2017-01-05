@@ -100,14 +100,23 @@ supplied file's' MIME type.
                             this.style.fill = "#1e90ff";
                             this._iconName = "text";
                             break;
-                        case "unknown":
+                        case "vnd.dcache.folder":
+                            this._iconName = "folder";
+                            this.style.fill = "#4FC3F7";
+                            break;
+                        case "vnd.dcache.link":
+                            this._iconName = "link";
+                            this.style.fill = "#3E2723";
+                            break;
+                        case "vnd.dcache.special":
+                            this._iconName = "special";
+                            this.style.fill = "#FFC107";
+                            break;
+                        case "octet-stream":
                         default:
                             this.style.fill = "#ccc";
                             this._iconName = "unknown";
                     }
-                } else if (mimeType == "na") {
-                    this._iconName = "folder";
-                    this.style.fill = "#4FC3F7";
                 } else {
                     this.style.fill = "#ccc";
                     this._iconName = "unknown";
