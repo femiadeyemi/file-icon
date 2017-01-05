@@ -31,7 +31,7 @@ supplied file's' MIME type.
 
             properties: {
                 /**
-                 * file extension
+                 * file MIME type
                  * @type {String}
                  */
                 mimeType: {
@@ -50,6 +50,17 @@ supplied file's' MIME type.
                 '_updateIcon(mimeType)'
             ],
 
+            ready: function()
+            {
+                if (this.mimeType === undefined){
+                    this.style.fill = "#ccc";
+                    this._iconName = "unknown";
+                    this._iconset = this._meta.byKey('files');
+                    this._iconset.applyIcon(this, this._iconName);
+                    this.updateStyles();
+                    this.unlisten(window, 'iron-iconset-added', '_updateIcon');
+                }
+            },
             _updateIcon: function(mimeType) 
             {
                 if (mimeType.startsWith("video/")) {
